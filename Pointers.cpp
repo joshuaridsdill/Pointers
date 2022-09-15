@@ -3,6 +3,29 @@
 
 #include <iostream>
 
+/** MUST define to get dub strings printed to the console
+*       |                                               *
+*       |                                               *
+*       V                                               *
+*********************************************************/
+
+#define DEBUGGING
+
+#ifdef DEBUGGING
+#define DEBUG_PRINT(x) std::cout << x << '\n'
+#else
+#define DEBUG_PRINT(x)
+#endif
+
+class Entity
+{
+public:
+    Entity()
+    {
+        DEBUG_PRINT("Created!");
+    }
+};
+
 int main()
 {
     int a = 10;
@@ -18,6 +41,28 @@ int main()
     
     std::cout << "A: " << a << ", B: " << b << '\n';
 
+    int* p2 = &b;
+
+    //Pointer to a pointer
+    int** ptp = &p;
+
+    //Modify where p points to through another pointer
+    *ptp = p2;
+     
+    //Modify memory through a dereferenced pointer to a pointer
+    **ptp = 25;
+    
+    std::cout << "A: " << a << ", B: " << b << '\n';
+
+    //Allocate memory on the heap, call the constructor and return the address for the pointer to store
+    int *c = new int;
+    *c = 5;
+    
+    std::cout << "C: " << *c << '\n';
+
+    Entity *e = new Entity();
+
+    delete e;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
